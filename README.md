@@ -54,4 +54,4 @@ masks
     CA01_01.png
 ```
 
-target binary masks will have values [0, 255], where 0 is background and 255 is the document.
+target binary masks will have values \[0, 255\], where 0 is background and 255 is the document.
