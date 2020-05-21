@@ -1,10 +1,20 @@
 # midv-500-models
 The repository contains a model for binary semantic segmentation of the documents.
 
+![](https://habrastorage.org/webt/gy/-t/xn/gy-txnzezlnurcwwlv7q5vs77x4.jpeg)
+
+Left: input.
+
+Center: prediction.
+
+Right: overlay of the image and predicted mask.
+
+For more details: [Example notebook](Example.ipynb)
+
 ## Dataset
 Model is trained on [MIDV-500: A Dataset for Identity Documents Analysis and Recognition on Mobile Devices in Video Stream](https://arxiv.org/abs/1807.05786).
 
-## Preparation
+### Preparation
 
 Download the dataset from the ftp server with
 ```bash
@@ -40,7 +50,7 @@ smartengines.com
 
 To preprocess the data use the script
 ```python
-python midv-500-models/preprocess_data.py -i <input_folder> \
+python midv500models/preprocess_data.py -i <input_folder> \
                                           -o <output_folder>
 ```
 
@@ -55,3 +65,25 @@ masks
 ```
 
 target binary masks will have values \[0, 255\], where 0 is background and 255 is the document.
+
+## Training
+
+```bash
+python midv500models/train.py -c midv500models/configs/2020-05-19.yaml \
+                              -i <path to train>
+```
+
+## Inference
+
+```bash
+python midv500models/inference.py -c midv500models/configs/2020-05-19.yaml \
+                                  -i <path to images> \
+                                  -o <path to save preidctions>
+                                  -w <path to weights>
+```
+
+## Example notebook
+[Example notebook](Example.ipynb)
+
+## Weights
+Unet with Resnet34 backbone: [Config](midv500models/configs/2020-05-19.yaml) [Weights](Unet_Resnet34.pth)

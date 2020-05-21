@@ -1,2 +1,4 @@
 albumentations
+iglovikov_helper_functions
+pytorch_toolbelt
 torch
