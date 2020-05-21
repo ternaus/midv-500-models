@@ -43,7 +43,7 @@ jobs:
     - name: Run flake8
       run: flake8
 #    - name: Run Mypy
-#      run: mypy midv-500-models
+#      run: mypy midv500models
 #    - name: tests
 #      run: |
 #       pip install .[tests]
