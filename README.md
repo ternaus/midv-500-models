@@ -66,14 +66,14 @@ masks
 
 target binary masks will have values \[0, 255\], where 0 is background and 255 is the document.
 
-# Training
+## Training
 
 ```bash
 python midv500models/train.py -c midv500models/configs/2020-05-19.yaml \
                               -i <path to train>
 ```
 
-# Inference
+## Inference
 
 ```bash
 python midv500models/inference.py -c midv500models/configs/2020-05-19.yaml \
@@ -82,8 +82,8 @@ python midv500models/inference.py -c midv500models/configs/2020-05-19.yaml \
                                   -w <path to weights>
 ```
 
-# Example notebook
+## Example notebook
 [Example notebook](Example.ipynb)
 
-# Weights
+## Weights
 Unet with Resnet34 backbone: [Config](midv500models/configs/2020-05-19.yaml) [Weights](Unet_Resnet34.pth)

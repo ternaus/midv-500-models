@@ -21,7 +21,6 @@ def get_samples(image_path: Path, mask_path: Path) -> List[Tuple[Path, Path]]:
 
     Returns:
     """
-
     image2path = get_id2_file_paths(image_path)
     mask2path = get_id2_file_paths(mask_path)
 
@@ -41,7 +40,7 @@ def load_checkpoint(
         rename_in_layers: {from_name: to_name}
             ex: {"model.0.": "",
                  "model.": ""}
-    Returns:
+    Returns: dictionary with the filtered checkpoint.
     """
     checkpoint = torch.load(file_path, map_location=lambda storage, loc: storage)
 
@@ -63,8 +62,15 @@ def load_checkpoint(
 def mask_overlay(
     image: np.ndarray, mask: np.ndarray, color: Tuple[int, int, int] = (0, 255, 0)
 ) -> np.ndarray:
-    """
-    Helper function to visualize mask
+    """Overlay image and mask.
+
+    Args:
+        image:
+        mask:
+        color:
+
+    Returns:
+
     """
     mask = np.dstack((mask, mask, mask)) * np.array(color)
     mask = mask.astype(np.uint8)
