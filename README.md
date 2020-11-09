@@ -14,7 +14,7 @@ The repository contains a model for binary semantic segmentation of the document
 
 ### Example inference
 
-Jupyter notebook with the example: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lNv88MJOKgc-50XeYcHlJODpvT2JF9ru?usp=sharing)
+Jupyter notebook with an example: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lNv88MJOKgc-50XeYcHlJODpvT2JF9ru?usp=sharing)
 
 ## Dataset
 Model is trained on [MIDV-500: A Dataset for Identity Documents Analysis and Recognition on Mobile Devices in Video Stream](https://arxiv.org/abs/1807.05786).
@@ -86,9 +86,6 @@ python midv500models/inference.py -c midv500models/configs/2020-05-19.yaml \
                                   -o <path to save preidctions>
                                   -w <path to weights>
 ```
-
-## Example notebook
-[Example notebook](Example.ipynb)
 
 ## Weights
 Unet with Resnet34 backbone: [Config](midv500models/configs/2020-05-19.yaml) [Weights](Unet_Resnet34.pth)
