@@ -3,11 +3,9 @@ The repository contains a model for binary semantic segmentation of the document
 
 ![](https://habrastorage.org/webt/gy/-t/xn/gy-txnzezlnurcwwlv7q5vs77x4.jpeg)
 
-Left: input.
-
-Center: prediction.
-
-Right: overlay of the image and predicted mask.
+* **Left**: input.
+* **Center**: prediction.
+* **Right**: overlay of the image and predicted mask.
 
 For more details: [Example notebook](Example.ipynb)
 
