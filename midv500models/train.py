@@ -1,15 +1,13 @@
 import argparse
 import os
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict
 
-import apex
 import pytorch_lightning as pl
 import torch
 import yaml
 from albumentations.core.serialization import from_dict
 from iglovikov_helper_functions.config_parsing.utils import object_from_dict
-from iglovikov_helper_functions.dl.pytorch.lightning import find_average
 from pytorch_lightning.loggers import NeptuneLogger
 from pytorch_toolbelt.losses import JaccardLoss, BinaryFocalLoss
 from torch.utils.data import DataLoader
@@ -48,15 +46,12 @@ class SegmentDocs(pl.LightningModule):
             )
             self.model.load_state_dict(checkpoint["state_dict"])
 
-        if hparams["sync_bn"]:
-            self.model = apex.parallel.convert_syncbn_model(self.model)
-
         self.losses = [
             ("jaccard", 0.1, JaccardLoss(mode="binary", from_logits=True)),
             ("focal", 0.9, BinaryFocalLoss()),
         ]
 
-    def forward(self, batch: Dict) -> torch.Tensor:
+    def forward(self, batch):
         return self.model(batch)
 
     def prepare_data(self):
@@ -109,17 +104,37 @@ class SegmentDocs(pl.LightningModule):
         logits = self.forward(features)
 
         total_loss = 0
-        logs = {}
+
         for loss_name, weight, loss in self.losses:
             ls_mask = loss(logits, masks)
             total_loss += weight * ls_mask
-            logs[f"train_mask_{loss_name}"] = ls_mask
+            self.log(
+                f"train_mask_{loss_name}",
+                ls_mask,
+                on_epoch=True,
+                on_step=True,
+                logger=True,
+                prog_bar=True,
+            )
 
-        logs["total_loss"] = total_loss
+        self.log(
+            "total_loss",
+            total_loss,
+            on_epoch=True,
+            on_step=True,
+            logger=True,
+            prog_bar=True,
+        )
+        self.log(
+            "lr",
+            self._get_current_lr(),
+            on_epoch=True,
+            on_step=True,
+            logger=True,
+            prog_bar=True,
+        )
 
-        logs["lr"] = self._get_current_lr()
-
-        return {"loss": total_loss, "log": logs}
+        return total_loss
 
     def _get_current_lr(self) -> torch.Tensor:
         lr = [x["lr"] for x in self.optimizers[0].param_groups][0]
@@ -131,30 +146,24 @@ class SegmentDocs(pl.LightningModule):
 
         logits = self.forward(features)
 
-        result = {}
         for loss_name, _, loss in self.losses:
-            result[f"val_mask_{loss_name}"] = loss(logits, masks)
+            self.log(
+                f"val_mask_{loss_name}",
+                loss(logits, masks),
+                on_step=False,
+                on_epoch=True,
+                prog_bar=False,
+                logger=True,
+            )
 
-        result["val_iou"] = binary_mean_iou(logits, masks)
-
-        return result
-
-    def validation_epoch_end(self, outputs: List) -> Dict[str, Any]:
-        avg_val_iou = find_average(outputs, "val_iou")
-
-        logs = {
-            "val_iou": avg_val_iou,
-        }
-
-        for target_type in ["mask"]:
-            for loss_name, _, _ in self.losses:
-                logs[f"val_{target_type}_{loss_name}"] = find_average(
-                    outputs, f"val_{target_type}_{loss_name}"
-                )
-
-        logs["epoch"] = self.trainer.current_epoch
-
-        return {"val_iou": avg_val_iou, "log": logs}
+        self.log(
+            "val_iou",
+            binary_mean_iou(logits, masks),
+            on_step=False,
+            on_epoch=True,
+            prog_bar=False,
+            logger=True,
+        )
 
 
 def main():

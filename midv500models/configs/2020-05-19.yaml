@@ -1,7 +1,6 @@
 ---
 seed: 1984
 
-sync_bn: True
 num_workers: 16
 experiment_name: "2020-05-19"
 
@@ -13,20 +12,20 @@ model:
 
 trainer:
   type: pytorch_lightning.Trainer
-  early_stop_callback: False
   default_save_path: ./
   gpus: 2
   use_amp: True
   amp_level: O1
   max_epochs: 40
   weights_summary: top
-  distributed_backend: dp
+  distributed_backend: ddp
   num_sanity_val_steps: 2
   train_percent_check: 1.0
   val_percent_check: 1.0
   progress_bar_refresh_rate: 1
   gradient_clip_val: 3
   benchmark: True
+  sync_batchnorm: True
 
 scheduler:
   type: midv500models.schedulers.PolyLR
