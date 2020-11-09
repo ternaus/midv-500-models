@@ -5,7 +5,7 @@ import albumentations as albu
 import numpy as np
 import torch
 from iglovikov_helper_functions.utils.image_utils import load_grayscale, load_rgb, pad
-from pytorch_toolbelt.utils.torch_utils import tensor_from_rgb_image
+from iglovikov_helper_functions.dl.pytorch.utils import tensor_from_rgb_image
 from torch.utils.data import Dataset
 
 

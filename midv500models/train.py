@@ -1,15 +1,13 @@
 import argparse
 import os
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict
 
-import apex
 import pytorch_lightning as pl
 import torch
 import yaml
 from albumentations.core.serialization import from_dict
 from iglovikov_helper_functions.config_parsing.utils import object_from_dict
-from iglovikov_helper_functions.dl.pytorch.lightning import find_average
 from pytorch_lightning.loggers import NeptuneLogger
 from pytorch_toolbelt.losses import JaccardLoss, BinaryFocalLoss
 from torch.utils.data import DataLoader
@@ -47,9 +45,6 @@ class SegmentDocs(pl.LightningModule):
                 rename_in_layers=corrections,
             )
             self.model.load_state_dict(checkpoint["state_dict"])
-
-        if hparams["sync_bn"]:
-            self.model = apex.parallel.convert_syncbn_model(self.model)
 
         self.losses = [
             ("jaccard", 0.1, JaccardLoss(mode="binary", from_logits=True)),
