@@ -12,7 +12,9 @@ The repository contains a model for binary semantic segmentation of the document
 
 `pip install -U midv500models`
 
-For more details: [Example notebook](Example.ipynb)
+### Example inference
+
+Jupyter notebook with the example: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1lNv88MJOKgc-50XeYcHlJODpvT2JF9ru?usp=sharing)
 
 ## Dataset
 Model is trained on [MIDV-500: A Dataset for Identity Documents Analysis and Recognition on Mobile Devices in Video Stream](https://arxiv.org/abs/1807.05786).
