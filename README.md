@@ -1,4 +1,6 @@
 # midv-500-models
+[![DOI](https://zenodo.org/badge/265323358.svg)](https://zenodo.org/badge/latestdoi/265323358)
+
 The repository contains a model for binary semantic segmentation of the documents.
 
 ![](https://habrastorage.org/webt/gy/-t/xn/gy-txnzezlnurcwwlv7q5vs77x4.jpeg)
