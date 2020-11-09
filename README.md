@@ -7,6 +7,11 @@ The repository contains a model for binary semantic segmentation of the document
 * **Center**: prediction.
 * **Right**: overlay of the image and predicted mask.
 
+
+## Installation
+
+`pip install -U midv500models`
+
 For more details: [Example notebook](Example.ipynb)
 
 ## Dataset
