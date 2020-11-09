@@ -3,9 +3,9 @@ import os
 import re
 import sys
 from shutil import rmtree
+from typing import List
 
 from setuptools import Command, find_packages, setup
-from typing import List
 
 # Package meta-data.
 name = "midv_models"
