@@ -8,7 +8,7 @@ from typing import List
 from setuptools import Command, find_packages, setup
 
 # Package meta-data.
-name = "midv_models"
+name = "midv500models"
 description = "Document segmentation."
 url = "https://github.com/ternaus/midv-500-models"
 email = "iglovikov@gmail.com"
