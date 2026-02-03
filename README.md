@@ -90,4 +90,4 @@ python midv500models/inference.py -c midv500models/configs/2020-05-19.yaml \
 ```
 
 ## Weights
-Unet with Resnet34 backbone: [Config](midv500models/configs/2020-05-19.yaml) [Weights]([Unet_Resnet34.pth](https://github.com/ternaus/midv-500-models/releases/download/0.0.1/unet_resnet34_2020-05-19.zip))
+Unet with Resnet34 backbone: [Config](midv500models/configs/2020-05-19.yaml) [Weights](https://github.com/ternaus/midv-500-models/releases/download/0.0.1/unet_resnet34_2020-05-19.zip)
